@@ -1,4 +1,7 @@
+br/com/senai/aprendercrescer/controller/UsuarioController.class
 br/com/senai/aprendercrescer/model/Usuario.class
 br/com/senai/aprendercrescer/dao/Conexao.class
+br/com/senai/aprendercrescer/dao/UsuarioDao.class
 MessageRestService.class
+br/com/senai/aprendercrescer/controller/Usuario.class
 br/com/senai/aprendercrescer/ws/UsuarioWs.class

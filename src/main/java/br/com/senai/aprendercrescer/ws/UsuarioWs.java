@@ -5,6 +5,9 @@
  */
 package br.com.senai.aprendercrescer.ws;
 
+import br.com.senai.aprendercrescer.controller.UsuarioController;
+import br.com.senai.aprendercrescer.model.Usuario;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.GET;
@@ -35,4 +38,34 @@ public class UsuarioWs {
         }
         return Response.status(500).build();
     }
+
+    @GET
+    @Path("/getusuarios")
+    @Produces("application/json")
+    public Response getAllUsuarios() {
+        try {
+            UsuarioController usuarioController;
+            usuarioController = new UsuarioController();
+
+            ArrayList<Usuario> lista = usuarioController.getUsuarios();
+            JSONObject retorno = new JSONObject();
+            JSONObject jUsuario;
+            for (int x = 0; x < lista.size(); x++) {
+                Usuario usuario = lista.get(x);
+                jUsuario = new JSONObject();
+                jUsuario.put("idUsuario", usuario.getIdUsuario());
+                jUsuario.put("idGrupo", usuario.getIdGrupo());
+                jUsuario.put("login", usuario.getLogin());
+                jUsuario.put("senha", usuario.getSenha());
+                jUsuario.put("nome", usuario.getNome());
+                jUsuario.put("dtAlteracao", usuario.getDtAlteracao());
+                jUsuario.put("flagInativo", usuario.getFlagInativo());
+                retorno.put("usuarios" + usuario.getIdUsuario(), jUsuario.toString());
+            }
+            return Response.status(200).entity(retorno.toString()).build();
+        } catch (JSONException ex) {
+            return Response.status(200).entity("{erro : \""+ex+"\"}").build();
+        }
+    }
+
 }

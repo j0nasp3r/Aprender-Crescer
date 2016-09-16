@@ -1,4 +1,7 @@
+/home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/controller/UsuarioController.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/model/Usuario.java
+/home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/dao/UsuarioDao.java
+/home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/controller/Usuario.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/dao/Conexao.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/ws/UsuarioWs.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/ws/MessageRestService.java

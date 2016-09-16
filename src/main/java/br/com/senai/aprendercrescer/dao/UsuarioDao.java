@@ -24,7 +24,7 @@ public class UsuarioDao {
     Usuario usuario = new Usuario();
     Statement st;
     PreparedStatement prepst;
-   
+
     static String INSERT = "INSERT INTO usuario("
             + " idUsuario, idGrupo, login, senhaUsuario, nomeUsuario, dtAlteracao, flagInativo)"
             + "  VALUES ((SELECT COALESCE(max(idUsuario)+1,1) from usuario) , ?, ?, ?, ?, ?, ?);";
@@ -35,19 +35,18 @@ public class UsuarioDao {
             + "nomeUsuario = ?, dtAlteracao = ?, flagInativo = ?  WHERE idUsuario = ? ;";
     static String DELETE = "DELETE FROM usuario WHERE idUsuario = ?;";
 
-    public boolean insereUsuario(Usuario usuario) {
+    public boolean insereUsuarios(Usuario usuario) {
         ResultSet rs;
         int id = 0;
         try {
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(INSERT);
             preparedStatement.setInt(1, usuario.getIdUsuario());
-            preparedStatement.setInt(2, usuario.getIdUsuario());
+            preparedStatement.setInt(2, usuario.getIdGrupo());
             preparedStatement.setString(3, usuario.getLogin());
             preparedStatement.setString(4, usuario.getSenha());
             preparedStatement.setString(5, usuario.getNome());
             preparedStatement.setString(6, (usuario.getDtAlteracao()).toString());
             preparedStatement.setString(7, String.valueOf(usuario.getFlagInativo()));
-            
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -66,12 +65,14 @@ public class UsuarioDao {
 
             while (rs.next()) {
                 Usuario usuario = new Usuario();
-                conta.setDescricao(rs.getString("descricao"));
-                conta.setIdConta(rs.getInt("idconta"));
-                conta.setTipoConta(rs.getString("tipoconta").toCharArray()[0]);
-                conta.setValor(rs.getDouble("valor"));
-                lista.add(conta);
-
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setIdGrupo(rs.getInt("idGrupo"));
+                usuario.setLogin(rs.getString("login"));
+                usuario.setSenha(rs.getString("senhaUsuario"));
+                usuario.setNome(rs.getString("nomeUsuario"));
+                usuario.setDtAlteracao(rs.getDate("dtAlteracao"));
+                usuario.setFlagInativo(rs.getString("flagInativo").charAt(0));
+                lista.add(usuario);
             }
 
         } catch (Exception ex) {
@@ -80,17 +81,19 @@ public class UsuarioDao {
         }
         return lista;
     }
-
-    public boolean updateConta(Conta conta) {
+    
+    public boolean updateUsuarios(Usuario usuario) {
         try {
 
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(UPDATE);
-            preparedStatement.setInt(1, conta.getIdConta());
-            preparedStatement.setString(2, conta.getDescricao());
-            preparedStatement.setString(3, conta.getTipoConta() + "");
-            preparedStatement.setDouble(4, conta.getValor());
-            preparedStatement.setInt(5, conta.getIdConta());
-            preparedStatement.execute();
+            preparedStatement.setInt(1, usuario.getIdUsuario());
+            preparedStatement.setInt(2, usuario.getIdGrupo());
+            preparedStatement.setString(3, usuario.getLogin());
+            preparedStatement.setString(4, usuario.getSenha());
+            preparedStatement.setString(5, usuario.getNome());
+            preparedStatement.setString(6, (usuario.getDtAlteracao()).toString());
+            preparedStatement.setString(7, String.valueOf(usuario.getFlagInativo()));
+            preparedStatement.execute();            
             return true;
         } catch (Exception ex) {
             System.out.println("Problema ao fazer update do usuario: " + ex);
@@ -99,8 +102,8 @@ public class UsuarioDao {
 
         return false;
     }
-
-    public boolean excluir(int id) {
+    
+    public boolean excluirUsuarios(int id) {
         try {
 
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(DELETE);
@@ -115,6 +118,4 @@ public class UsuarioDao {
         return false;
 
     }
-
-}
 }
