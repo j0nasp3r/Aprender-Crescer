@@ -26,13 +26,13 @@ public class UsuarioDao {
     PreparedStatement prepst;
 
     static String INSERT = "INSERT INTO usuario("
-            + " idUsuario, idGrupo, login, senhaUsuario, nomeUsuario, dtAlteracao, flagInativo)"
-            + "  VALUES ((SELECT COALESCE(max(idUsuario)+1,1) from usuario) , ?, ?, ?, ?, ?, ?);";
+            + " idUsuario, idGrupo, login, senhaUsuario, nomeUsuario, flagInativo)"
+            + "  VALUES ((SELECT COALESCE(max(idUsuario)+1,1) from usuario) , ?, ?, ?, ?, ?);";
 
     static String SELECTALL = "SELECT idUsuario, idGrupo, login, senhaUsuario, nomeUsuario, dtAlteracao, "
             + "flagInativo FROM usuario order by idUsuario";
     static String UPDATE = "UPDATE usuario SET idUsuario = ?, idGrupo = ?, login = ?, senhaUsuario = ?, "
-            + "nomeUsuario = ?, dtAlteracao = ?, flagInativo = ?  WHERE idUsuario = ? ;";
+            + "nomeUsuario = ?, flagInativo = ?  WHERE idUsuario = ? ;";
     static String DELETE = "DELETE FROM usuario WHERE idUsuario = ?;";
 
     public boolean insereUsuarios(Usuario usuario) {
@@ -40,13 +40,14 @@ public class UsuarioDao {
         int id = 0;
         try {
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(INSERT);
-            preparedStatement.setInt(1, usuario.getIdUsuario());
-            preparedStatement.setInt(2, usuario.getIdGrupo());
-            preparedStatement.setString(3, usuario.getLogin());
-            preparedStatement.setString(4, usuario.getSenha());
-            preparedStatement.setString(5, usuario.getNome());
-            preparedStatement.setString(6, (usuario.getDtAlteracao()).toString());
-            preparedStatement.setString(7, String.valueOf(usuario.getFlagInativo()));
+           // preparedStatement.setInt(1, usuario.getIdUsuario());
+            preparedStatement.setInt(1, usuario.getIdGrupo());
+            preparedStatement.setString(2, usuario.getLogin());
+            preparedStatement.setString(3, usuario.getSenha());
+            preparedStatement.setString(4, usuario.getNome());
+            //preparedStatement.setString(6, usuario.getDtAlteracao().toString());
+            preparedStatement.setString(5, (usuario.getFlagInativo()+""));
+            //System.out.println("" + preparedStatement.toString());
             preparedStatement.execute();
             return true;
         } catch (SQLException ex) {
@@ -81,19 +82,20 @@ public class UsuarioDao {
         }
         return lista;
     }
-    
+
     public boolean updateUsuarios(Usuario usuario) {
         try {
-
             PreparedStatement preparedStatement = Conexao.getConexao().prepareStatement(UPDATE);
             preparedStatement.setInt(1, usuario.getIdUsuario());
             preparedStatement.setInt(2, usuario.getIdGrupo());
             preparedStatement.setString(3, usuario.getLogin());
             preparedStatement.setString(4, usuario.getSenha());
             preparedStatement.setString(5, usuario.getNome());
-            preparedStatement.setString(6, (usuario.getDtAlteracao()).toString());
-            preparedStatement.setString(7, String.valueOf(usuario.getFlagInativo()));
-            preparedStatement.execute();            
+            //preparedStatement.setString(6, usuario.getDtAlteracao().toString());
+            preparedStatement.setString(6, (usuario.getFlagInativo()) + "");
+            preparedStatement.setInt(7, usuario.getIdUsuario());
+            System.out.println(preparedStatement.toString());
+            preparedStatement.execute();
             return true;
         } catch (Exception ex) {
             System.out.println("Problema ao fazer update do usuario: " + ex);
@@ -102,7 +104,7 @@ public class UsuarioDao {
 
         return false;
     }
-    
+
     public boolean excluirUsuarios(int id) {
         try {
 
@@ -116,6 +118,5 @@ public class UsuarioDao {
         }
 
         return false;
-
     }
 }

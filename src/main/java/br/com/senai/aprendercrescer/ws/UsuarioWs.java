@@ -7,12 +7,19 @@ package br.com.senai.aprendercrescer.ws;
 
 import br.com.senai.aprendercrescer.controller.UsuarioController;
 import br.com.senai.aprendercrescer.model.Usuario;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,8 +71,42 @@ public class UsuarioWs {
             }
             return Response.status(200).entity(retorno.toString()).build();
         } catch (JSONException ex) {
-            return Response.status(200).entity("{erro : \""+ex+"\"}").build();
+            return Response.status(200).entity("{erro : \"" + ex + "\"}").build();
         }
+    }
+
+    @POST
+    @Path("/setusuario")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("application/json")
+    public Response setUsuario(InputStream dadosServ) {
+        StringBuilder requisicaoFinal = new StringBuilder();
+
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(dadosServ));
+            String requisicao = null;
+            while ((requisicao = in.readLine()) != null) {
+                requisicaoFinal.append(requisicao);
+            }
+            //System.out.println(requisicaoFinal.toString());
+            JSONObject resposta = new JSONObject(requisicaoFinal.toString());
+
+            Usuario usuario = new Usuario();
+            //usuario.setIdUsuario(resposta.getInt("idUsuario"));
+            usuario.setIdGrupo(resposta.getInt("idGrupo"));
+            usuario.setLogin(resposta.getString("login"));
+            usuario.setSenha(resposta.getString("senha"));
+            usuario.setNome(resposta.getString("nome"));
+            usuario.setDtAlteracao(new Date());
+            usuario.setFlagInativo(resposta.getString("flagInativo").toCharArray()[0]);
+
+            new UsuarioController().insereCadastro(usuario);
+
+            Response.status(200).entity(requisicaoFinal.toString()).build();
+        } catch (Exception ex) {
+            return Response.status(501).entity(ex.toString()).build();
+        }
+        return null;
     }
 
 }
