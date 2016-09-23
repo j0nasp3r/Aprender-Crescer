@@ -73,7 +73,7 @@ public class GrupoWs {
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
 
             Grupo grupo = new Grupo();
-            grupo.setIdGrupo(resposta.getInt("idGrupo"));
+            //grupo.setIdGrupo(resposta.getInt("idGrupo"));
             grupo.setTipoUsuario(resposta.getString("tipoUsuario").toCharArray()[0]);
             grupo.setDescricao(resposta.getString("descricaoGrupo"));
 
