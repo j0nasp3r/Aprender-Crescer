@@ -10,7 +10,6 @@ import br.com.senai.aprendercrescer.model.Usuario;
 import java.util.ArrayList;
 
 /**
- *
  * @author j0nas
  */
 public class UsuarioController {

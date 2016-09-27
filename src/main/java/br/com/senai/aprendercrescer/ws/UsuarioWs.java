@@ -53,12 +53,18 @@ public class UsuarioWs {
         try {
             UsuarioController usuarioController;
             usuarioController = new UsuarioController();
-
             ArrayList<Usuario> lista = usuarioController.getUsuarios();
-            JSONObject retorno = new JSONObject();
+
             JSONObject jUsuario;
-            for (int x = 0; x < lista.size(); x++) {
-                Usuario usuario = lista.get(x);
+            StringBuilder retorno = new StringBuilder();
+            retorno.append("[");
+            boolean controle = false;
+
+            for (Usuario usuario : lista) {
+                if (controle) {
+                    retorno.append(" , ");
+                }
+
                 jUsuario = new JSONObject();
                 jUsuario.put("idUsuario", usuario.getIdUsuario());
                 jUsuario.put("idGrupo", usuario.getIdGrupo());
@@ -67,8 +73,10 @@ public class UsuarioWs {
                 jUsuario.put("nome", usuario.getNome());
                 jUsuario.put("dtAlteracao", usuario.getDtAlteracao());
                 jUsuario.put("flagInativo", usuario.getFlagInativo());
-                retorno.put("usuarios" + usuario.getIdUsuario(), jUsuario.toString());
+                retorno.append(jUsuario.toString());;
+                controle = true;
             }
+            retorno.append("]");
             return Response.status(200).entity(retorno.toString()).build();
         } catch (JSONException ex) {
             return Response.status(200).entity("{erro : \"" + ex + "\"}").build();
@@ -100,9 +108,11 @@ public class UsuarioWs {
             usuario.setDtAlteracao(new Date());
             usuario.setFlagInativo(resposta.getString("flagInativo").toCharArray()[0]);
 
-            new UsuarioController().insereCadastro(usuario);
-
-            Response.status(200).entity(requisicaoFinal.toString()).build();
+            if (new UsuarioController().insereCadastro(usuario)) {
+                Response.status(200).entity("{\"result\" : \"Cadastrado com Sucesso\"}").build();
+            } else {
+                Response.status(200).entity("{\"result\" : \"Erro no Cadastro\"}").build();
+            }
         } catch (Exception ex) {
             return Response.status(501).entity(ex.toString()).build();
         }
