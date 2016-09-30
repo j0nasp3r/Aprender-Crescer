@@ -1,38 +1,35 @@
 
 <html ng-app="myapp">
     <head>
-        <title> Lista Usuarios </title>
+        <title> Lista Contas </title>
         <meta charset="UTF-8">
         <meta name="viewport"
               content="width=device-width,
               initial-scale=1.0">
         <script type="text/javascript" src="vendor/js/angular.min.js"></script>
         <script type="text/javascript" src="js/myapp.js"></script>
-        <script type="text/javascript" src="js/controller/UsuarioController.js"></script>
-        <script type="text/javascript" src="js/factory/UsuarioFactory.js"></script>
+        <script type="text/javascript" src="js/controller/ContaController.js"></script>
+        <script type="text/javascript" src="js/factory/ContaFactory.js"></script>
     </head>
-    <body ng-controller="UsuarioController" ng-init="buscaUsuarios()">
+    <body ng-controller="ContaController" ng-init="buscaContas()">
         <div>
-            <h1> Lista Usuarios </h1>
+            <h1> Lista Contas </h1>
             <div>
                 <table>
                     <thead>
                         <tr>
-                            <th>IdUsuario</th>
-                            <th>IdGrupo</th>
-                            <th>Login</th>
-                            <th>Nome</th>
-                            <th>Ativo</th>
-                            <th>Opções</th>
+                            <th>IdConta</th>
+                            <th>Descrição</th>
+                            <th>TipoConta</th>
+                            <th>Valor</th>
                         </tr>    
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in dados">
-                            <td>{{item.idUsuario}}</td>
-                            <td>{{item.idGrupo}}</td>
-                            <td>{{item.login}}</td>
-                            <td>{{item.Nome}}</td>
-                            <td>{{item.Ativo}}</td>
+                            <td>{{item.idConta}}</td>
+                            <td>{{item.descricao}}</td>
+                            <td>{{item.tipoConta}}</td>
+                            <td>{{item.valor}}</td>
                             <td>
                                 <button>Editar</button>
                                 <button>Remover</button>

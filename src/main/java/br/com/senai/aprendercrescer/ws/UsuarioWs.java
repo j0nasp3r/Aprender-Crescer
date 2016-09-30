@@ -32,21 +32,6 @@ import org.json.JSONObject;
 public class UsuarioWs {
 
     @GET
-    @Path("/getusuario")
-    @Produces("application/json")
-    public Response getUsuario() {
-        try {
-            JSONObject retorno = new JSONObject();
-            retorno.put("nome", "Jonas Pereira");
-            retorno.put("idade", 22);
-            return Response.status(200).entity(retorno.toString()).build();
-        } catch (JSONException ex) {
-            Logger.getLogger(UsuarioWs.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return Response.status(500).build();
-    }
-
-    @GET
     @Path("/getusuarios")
     @Produces("application/json")
     public Response getAllUsuarios() {

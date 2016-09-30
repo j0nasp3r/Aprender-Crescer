@@ -37,18 +37,26 @@ public class GrupoWs {
         try {
             GrupoController grupoController;
             grupoController = new GrupoController();
-
             ArrayList<Grupo> lista = grupoController.getGrupos();
-            JSONObject retorno = new JSONObject();
+
+            JSONObject jConta;
+            StringBuilder retorno = new StringBuilder();
+            retorno.append("[");
+            boolean controle = false;
             JSONObject jGrupo;
-            for (int x = 0; x < lista.size(); x++) {
-                Grupo grupo = lista.get(x);
+            for (Grupo grupo : lista) {
+                if (controle) {
+                    retorno.append(" , ");
+                }
                 jGrupo = new JSONObject();
                 jGrupo.put("idGrupo", grupo.getIdGrupo());
                 jGrupo.put("tipoUsuario", grupo.getTipoUsuario());
                 jGrupo.put("descricaoGrupo", grupo.getDescricao());
-                retorno.put("grupos" + grupo.getIdGrupo(), jGrupo.toString());
+                retorno.append(jGrupo.toString());;
+                controle = true;
             }
+
+            retorno.append("]");
             return Response.status(200).entity(retorno.toString()).build();
         } catch (JSONException ex) {
             return Response.status(200).entity("{erro : \"" + ex + "\"}").build();
@@ -86,4 +94,3 @@ public class GrupoWs {
         return null;
     }
 }
-

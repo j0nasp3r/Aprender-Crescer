@@ -32,22 +32,31 @@ public class ContaWs {
     @Path("/getContas")
     @Produces("application/json")
     public Response getAllContas() {
+ 
         try {
             ContaController contaController;
             contaController = new ContaController();
-
             ArrayList<Conta> lista = contaController.getContas();
-            JSONObject retorno = new JSONObject();
+
             JSONObject jConta;
-            for (int x = 0; x < lista.size(); x++) {
-                Conta conta = lista.get(x);
+            StringBuilder retorno = new StringBuilder();
+            retorno.append("[");
+            boolean controle = false;
+
+            for (Conta conta : lista) {
+                if (controle) {
+                    retorno.append(" , ");
+                }
                 jConta = new JSONObject();
                 jConta.put("idConta", conta.getIdConta());
                 jConta.put("descricao", conta.getDescricao());
                 jConta.put("tipoConta", conta.getTipoConta());
                 jConta.put("valor", conta.getValor());
-                retorno.put("contas" + conta.getIdConta(), jConta.toString());
+                retorno.append(jConta.toString());;
+                controle = true;
             }
+
+            retorno.append("]");
             return Response.status(200).entity(retorno.toString()).build();
         } catch (JSONException ex) {
             return Response.status(200).entity("{erro : \"" + ex + "\"}").build();
@@ -67,7 +76,7 @@ public class ContaWs {
             while ((requisicao = in.readLine()) != null) {
                 requisicaoFinal.append(requisicao);
             }
-            
+
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
 
             Conta conta = new Conta();

@@ -1,38 +1,33 @@
 
 <html ng-app="myapp">
     <head>
-        <title> Lista Usuarios </title>
+        <title> Lista Grupos </title>
         <meta charset="UTF-8">
         <meta name="viewport"
               content="width=device-width,
               initial-scale=1.0">
         <script type="text/javascript" src="vendor/js/angular.min.js"></script>
         <script type="text/javascript" src="js/myapp.js"></script>
-        <script type="text/javascript" src="js/controller/UsuarioController.js"></script>
-        <script type="text/javascript" src="js/factory/UsuarioFactory.js"></script>
+        <script type="text/javascript" src="js/controller/GrupoController.js"></script>
+        <script type="text/javascript" src="js/factory/GrupoFactory.js"></script>
     </head>
-    <body ng-controller="UsuarioController" ng-init="buscaUsuarios()">
+    <body ng-controller="GrupoController" ng-init="buscaGrupos()">
         <div>
-            <h1> Lista Usuarios </h1>
+            <h1> Lista Grupos </h1>
             <div>
                 <table>
                     <thead>
                         <tr>
-                            <th>IdUsuario</th>
                             <th>IdGrupo</th>
-                            <th>Login</th>
-                            <th>Nome</th>
-                            <th>Ativo</th>
-                            <th>Opções</th>
+                            <th>Tipo Usuario</th>
+                            <th>Descrição</th>
                         </tr>    
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in dados">
-                            <td>{{item.idUsuario}}</td>
                             <td>{{item.idGrupo}}</td>
-                            <td>{{item.login}}</td>
-                            <td>{{item.Nome}}</td>
-                            <td>{{item.Ativo}}</td>
+                            <td>{{item.tipoUsuario}}</td>
+                            <td>{{item.descricaoGrupo}}</td>
                             <td>
                                 <button>Editar</button>
                                 <button>Remover</button>
@@ -46,3 +41,4 @@
 
     </body>
 </html>
+
