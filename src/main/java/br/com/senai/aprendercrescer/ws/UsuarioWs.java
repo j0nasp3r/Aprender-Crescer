@@ -85,7 +85,7 @@ public class UsuarioWs {
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
 
             Usuario usuario = new Usuario();
-            //usuario.setIdUsuario(resposta.getInt("idUsuario"));
+            //usuario.setIdUsuario(resposta.getInt("idUsuario"));e
             usuario.setIdGrupo(resposta.getInt("idGrupo"));
             usuario.setLogin(resposta.getString("login"));
             usuario.setSenha(resposta.getString("senha"));
