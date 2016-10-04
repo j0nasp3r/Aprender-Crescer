@@ -94,14 +94,13 @@ public class UsuarioWs {
             usuario.setFlagInativo(resposta.getString("flagInativo").toCharArray()[0]);
 
             if (new UsuarioController().insereCadastro(usuario)) {
-                Response.status(200).entity("{\"result\" : \"Cadastrado com Sucesso\"}").build();
+                return Response.status(200).entity("{\"result\" : \"Cadastrado com Sucesso\"}").build();
             } else {
-                Response.status(200).entity("{\"result\" : \"Erro no Cadastro\"}").build();
+                return Response.status(501).entity("{\"result\" : \"Erro no Cadastro\"}").build();
             }
         } catch (Exception ex) {
-            return Response.status(501).entity(ex.toString()).build();
+            return Response.status(400).entity(ex.toString()).build();
         }
-        return null;
     }
 
 }

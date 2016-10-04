@@ -6,12 +6,32 @@
         <meta name="viewport"
               content="width=device-width,
               initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="vendor/sweetalert/sweetalert.css">
         <script type="text/javascript" src="vendor/js/angular.min.js"></script>
+        <script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
         <script type="text/javascript" src="js/myapp.js"></script>
         <script type="text/javascript" src="js/controller/GrupoController.js"></script>
         <script type="text/javascript" src="js/factory/GrupoFactory.js"></script>
     </head>
-    <body ng-controller="GrupoController" ng-init="buscaGrupos()">
+        <body ng-controller="GrupoController" ng-init="buscaGrupos()">
+        <div ng-hide="editando">
+            <h1>Cadastro</h1>
+        </div>
+        <div ng-show="editando">
+            <h1>Editar</h1>            
+        </div>
+        <form ng-submit="cadastroGrupos(grupo)">
+            <div>
+                <label>Descrição: </label>
+                <input ng-model="grupo.descricaoGrupo" type="text" placeholder="Digite aqui a descrição do grupo">
+            </div>
+            <div>
+                <label>Tipo Usuario: </label>
+                <input ng-model="grupo.tipoUsuario" type="text" placeholder="Digite aqui o tipo do usuario">
+            </div>
+            <button ng-show="editando"  type="submit">Salvar</button>
+            <button ng-hide="editando" type="submit">Adicionar</button>
+        </form> 
         <div>
             <h1> Lista Grupos </h1>
             <div>

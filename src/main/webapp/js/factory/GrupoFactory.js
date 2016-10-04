@@ -8,5 +8,14 @@ myapp.factory('GrupoFactory', ['$http', function($http){
                 callBack(resposta);
             });
         },
+        setGrupos: function(callBack, grupo){
+            $http({"method": "POST", "url": "/AprenderCrescer/rest/grupo/setgrupo","headers": {"Content-Type": "application/json"},
+                "data" : grupo
+            }).then(function(resposta){
+                callBack(resposta);
+            },function(resposta){
+                callBack(resposta);
+            });
+        },
     };
 }]);

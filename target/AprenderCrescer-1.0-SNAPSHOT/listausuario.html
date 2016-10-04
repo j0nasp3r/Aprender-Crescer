@@ -6,7 +6,9 @@
         <meta name="viewport"
               content="width=device-width,
               initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="vendor/sweetalert/sweetalert.css">
         <script type="text/javascript" src="vendor/js/angular.min.js"></script>
+        <script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
         <script type="text/javascript" src="js/myapp.js"></script>
         <script type="text/javascript" src="js/controller/UsuarioController.js"></script>
         <script type="text/javascript" src="js/factory/UsuarioFactory.js"></script>
@@ -33,7 +35,7 @@
             </div>
             <div>
                 <label>Ativo: </label>
-                <input ng-model="usuario.flaInativo" type="text" placeholder="Ativo ou não">
+                <input ng-model="usuario.flagInativo" type="text" placeholder="Ativo ou não">
             </div>
             <div>
                 <label>idGrupo: </label>
@@ -41,10 +43,7 @@
             </div>
             <button ng-show="editando"  type="submit">Salvar</button>
             <button ng-hide="editando" type="submit">Adicionar</button>
-        </form>
-        
-        
-        
+        </form>       
         <div>
             <h1> Lista Usuarios </h1>
             <div>

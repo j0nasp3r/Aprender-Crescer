@@ -6,12 +6,36 @@
         <meta name="viewport"
               content="width=device-width,
               initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="vendor/sweetalert/sweetalert.css">
         <script type="text/javascript" src="vendor/js/angular.min.js"></script>
+        <script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
         <script type="text/javascript" src="js/myapp.js"></script>
         <script type="text/javascript" src="js/controller/ContaController.js"></script>
         <script type="text/javascript" src="js/factory/ContaFactory.js"></script>
     </head>
     <body ng-controller="ContaController" ng-init="buscaContas()">
+        <div ng-hide="editando">
+            <h1>Cadastro</h1>
+        </div>
+        <div ng-show="editando">
+            <h1>Editar</h1>            
+        </div>
+        <form ng-submit="cadastroContas(conta)">
+            <div>
+                <label>Descrição: </label>
+                <input ng-model="conta.descricao" type="text" placeholder="Digite aqui a descrição">
+            </div>
+            <div>
+                <label>Tipo Conta: </label>
+                <input ng-model="conta.tipoConta" type="text" placeholder="Digite aqui o tipo da conta">
+            </div>
+            <div>
+                <label>Valor: </label>
+                <input ng-model="conta.valor" type="text" placeholder="Digite aqui o valor">
+            </div>
+            <button ng-show="editando"  type="submit">Salvar</button>
+            <button ng-hide="editando" type="submit">Adicionar</button>
+        </form>       
         <div>
             <h1> Lista Contas </h1>
             <div>

@@ -32,7 +32,7 @@ public class ContaWs {
     @Path("/getContas")
     @Produces("application/json")
     public Response getAllContas() {
- 
+
         try {
             ContaController contaController;
             contaController = new ContaController();
@@ -85,12 +85,13 @@ public class ContaWs {
             conta.setTipoConta(resposta.getString("tipoConta"));
             conta.setValor(resposta.getDouble("valor"));
 
-            new ContaController().insereConta(conta);
-
-            Response.status(200).entity(requisicaoFinal.toString()).build();
+            if (new ContaController().insereConta(conta)) {
+                return Response.status(200).entity("{\"result\" : \"Cadastrado com Sucesso\"}").build();
+            } else {
+                return Response.status(501).entity("{\"result\" : \"Erro no Cadastro\"}").build();
+            }
         } catch (Exception ex) {
-            return Response.status(501).entity(ex.toString()).build();
+            return Response.status(400).entity(ex.toString()).build();
         }
-        return null;
     }
 }

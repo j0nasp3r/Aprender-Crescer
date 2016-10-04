@@ -85,12 +85,13 @@ public class GrupoWs {
             grupo.setTipoUsuario(resposta.getString("tipoUsuario").toCharArray()[0]);
             grupo.setDescricao(resposta.getString("descricaoGrupo"));
 
-            new GrupoController().insereGrupo(grupo);
-
-            Response.status(200).entity(requisicaoFinal.toString()).build();
+            if (new GrupoController().insereGrupo(grupo)){
+                return Response.status(200).entity("{\"result\" : \"Cadastrado com Sucesso\"}").build();
+            }else {
+                return Response.status(501).entity("{\"result\" : \"Erro no Cadastro\"}").build();
+            }
         } catch (Exception ex) {
-            return Response.status(501).entity(ex.toString()).build();
+            return Response.status(400).entity(ex.toString()).build();
         }
-        return null;
     }
 }
