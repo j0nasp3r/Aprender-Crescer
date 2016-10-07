@@ -6,12 +6,16 @@
 package br.com.senai.aprendercrescer.ws;
 
 import br.com.senai.aprendercrescer.controller.ContaController;
+import br.com.senai.aprendercrescer.controller.UsuarioController;
 import br.com.senai.aprendercrescer.model.Conta;
+import br.com.senai.aprendercrescer.model.Usuario;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -63,6 +67,22 @@ public class ContaWs {
         }
     }
 
+    @GET
+    @Path("/deleteconta/idconta")
+    @Produces("application/json")
+    public Response deleteConta(@PathParam("idconta") int idconta) {
+        try{
+            if(new ContaController().deleteCadastro(idconta)){
+                return Response.status(200).build();
+            }else{
+                return Response.status(400).build();
+            }
+        }catch (Exception ex){
+            Response.status(400).entity(ex.toString()).build();
+        }
+        return Response.status(200).build();
+    }
+    
     @POST
     @Path("/setconta")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -81,6 +101,38 @@ public class ContaWs {
 
             Conta conta = new Conta();
             //conta.setIdConta(resposta.getInt("idConta"));
+            conta.setDescricao(resposta.getString("descricao"));
+            conta.setTipoConta(resposta.getString("tipoConta"));
+            conta.setValor(resposta.getDouble("valor"));
+
+            if (new ContaController().insereConta(conta)) {
+                return Response.status(200).entity("{\"result\" : \"Cadastrado com Sucesso\"}").build();
+            } else {
+                return Response.status(501).entity("{\"result\" : \"Erro no Cadastro\"}").build();
+            }
+        } catch (Exception ex) {
+            return Response.status(400).entity(ex.toString()).build();
+        }
+    }
+    
+    @POST
+    @Path("/updateconta")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("application/json")
+    public Response updateConta(InputStream dadosServ) {
+        StringBuilder requisicaoFinal = new StringBuilder();
+
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(dadosServ));
+            String requisicao = null;
+            while ((requisicao = in.readLine()) != null) {
+                requisicaoFinal.append(requisicao);
+            }
+
+            JSONObject resposta = new JSONObject(requisicaoFinal.toString());
+
+            Conta conta = new Conta();
+            conta.setIdConta(resposta.getInt("idConta"));
             conta.setDescricao(resposta.getString("descricao"));
             conta.setTipoConta(resposta.getString("tipoConta"));
             conta.setValor(resposta.getDouble("valor"));

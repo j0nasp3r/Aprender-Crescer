@@ -55,8 +55,8 @@
                             <td>{{item.tipoConta}}</td>
                             <td>{{item.valor}}</td>
                             <td>
-                                <button>Editar</button>
-                                <button>Remover</button>
+                                <button ng-click="editarConta(item)">Editar</button>
+                                <button ng-click="deleteConta(item.idConta)">Editar</button> 
                             </td>
                         </tr>
                     </tbody>

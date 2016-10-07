@@ -17,6 +17,20 @@ myapp.factory('UsuarioFactory', ['$http', function($http){
                 callBack(resposta);
             });
         },
+        updateUsuario: function(callBack, usuario){
+            $http({"method": "POST", "url": "/AprenderCrescer/rest/usuario/updateusuario","headers": {"Content-Type": "application/json"},
+                "data" : usuario
+            }).then(function(resposta){
+                callBack(resposta);
+            },function(resposta){
+                callBack(resposta);
+            });
+        },
+        deleteUsuario: function(callBack, id){
+            $http({"method":"GET", "url":"/AprenderCrescer/rest/usuario/deleteusuario/"+id}).then(function(resposta){
+                callBack(resposta);
+            });
+        },
     };
 }]);
 

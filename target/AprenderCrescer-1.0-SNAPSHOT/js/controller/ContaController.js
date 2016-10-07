@@ -1,38 +1,66 @@
 
-myapp.controller('ContaController', function ContaController($scope, $http, ContaFactory){
-   
+myapp.controller('ContaController', function ContaController($scope, $http, ContaFactory) {
+
     //$scope.dados = [{"idConta":1, "descricao":"fatura de agua", "tipoConta":"debito", "valor":100}];
-    
-    $scope.buscaContas = function(){
-        ContaFactory.getContas($scope.callbackContas);
+
+    $scope.buscaConta = function () {
+        ContaFactory.getConta($scope.callbackConta);
     }
-    
-    $scope.callbackContas = function(resposta){
+
+    $scope.callbackConta = function (resposta) {
         $scope.dados = resposta.data;
-    } 
-
-    $scope.editarContas = function () {
-        $scope.editando = !$scope.editando;
     }
 
-    $scope.cadastroContas = function (conta) {
-        ContaFactory.setContas($scope.callbackCadastroContas, conta);
+    $scope.editarConta = function (item) {
+        $scope.editando = true;
+        $scope.conta = angular.copy(item);
     }
 
-    $scope.callbackCadastroContas = function (resposta) {
-        if (resposta.status != 200) {
-            swal("Contas", "Conta Cadastrada com sucesso!", "error");
+    $scope.cadastroConta = function (conta) {
+        if (conta.idGrupo && conta.idGrupo != 0) {
+            ContaFactory.updateConta($scope.callbackCadastroConta, conta);
         } else {
-            //alert("OK");
-            swal("Contas", "Conta Cadastrada com sucesso!", "success");
-            $scope.buscaContas();
+            ContaFactory.setConta($scope.callbackCadastroConta, conta);
+        }
+    }
+
+    $scope.callbackCadastroConta = function (resposta) {
+        if (resposta.status != 200) {
+            if ($scope.editando == true) {
+                swal("Conta", "Erro ao atualizar o cadastro de Conta!", "error");
+            } else {
+                swal("Conta", "Erro ao cadastrar o Conta!", "error");
+            }
+        } else {
+            if ($scope.editando == true) {
+                swal("Conta", "Conta salvo com sucesso!", "success");
+            } else {
+                swal("Conta", "Conta Cadastrado com sucesso!", "success");
+            }
+            $scope.buscaConta()();
             $scope.limpaCampos();
         }
     }
 
     $scope.limpaCampos = function () {
+        $scope.conta.idConta = "";
         $scope.conta.descricao = "";
         $scope.conta.tipoConta = "";
         $scope.conta.valor = "";
+        $scope.editando = false;
     }
+
+    $scope.deleteConta = function (id) {
+        ContaFactory.deleteConta($scope.callbackDeleteConta, id);
+    }
+
+    $scope.callbackDeleteConta = function (resposta) {
+        if (resposta.status != 200) {
+            swal("Conta", "Erro ao deletar a Conta!", "error");
+        } else {
+            swal("Conta", "Conta deletada com sucesso!", "success");
+            $scope.limpaCampos();
+        }
+    }
+
 });

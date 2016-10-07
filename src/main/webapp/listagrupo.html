@@ -49,8 +49,8 @@
                             <td>{{item.tipoUsuario}}</td>
                             <td>{{item.descricaoGrupo}}</td>
                             <td>
-                                <button>Editar</button>
-                                <button>Remover</button>
+                                <button ng-click="editarGrupo(item)">Editar</button>
+                                <button ng-click="deleteGrupo(item.idGrupo)">Editar</button> 
                             </td>
                         </tr>
                     </tbody>
