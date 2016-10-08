@@ -13,14 +13,14 @@
         <script type="text/javascript" src="js/controller/ContaController.js"></script>
         <script type="text/javascript" src="js/factory/ContaFactory.js"></script>
     </head>
-    <body ng-controller="ContaController" ng-init="buscaContas()">
+    <body ng-controller="ContaController" ng-init="buscaConta()">
         <div ng-hide="editando">
             <h1>Cadastro</h1>
         </div>
         <div ng-show="editando">
             <h1>Editar</h1>            
         </div>
-        <form ng-submit="cadastroContas(conta)">
+        <form ng-submit="cadastroConta(conta)">
             <div>
                 <label>Descrição: </label>
                 <input ng-model="conta.descricao" type="text" placeholder="Digite aqui a descrição">
@@ -56,7 +56,7 @@
                             <td>{{item.valor}}</td>
                             <td>
                                 <button ng-click="editarConta(item)">Editar</button>
-                                <button ng-click="deleteConta(item.idConta)">Editar</button> 
+                                <button ng-click="deleteConta(item)">Remover</button> 
                             </td>
                         </tr>
                     </tbody>

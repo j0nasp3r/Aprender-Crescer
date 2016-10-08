@@ -6,14 +6,11 @@
 package br.com.senai.aprendercrescer.ws;
 
 import br.com.senai.aprendercrescer.controller.GrupoController;
-import br.com.senai.aprendercrescer.controller.UsuarioController;
 import br.com.senai.aprendercrescer.model.Grupo;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -66,20 +63,32 @@ public class GrupoWs {
         }
     }
 
-    @GET
+    @DELETE
     @Path("/deletegrupo/idgrupo")
     @Produces("application/json")
-    public Response deleteGrupo(@PathParam("idgrupo") int idgrupo) {
+    public Response deleteUsuario(InputStream dadosServ) {
+        StringBuilder requisicaoFinal = new StringBuilder();
+
         try {
-            if (new GrupoController().deleteCadastro(idgrupo)) {
-                return Response.status(200).build();
+            BufferedReader in = new BufferedReader(new InputStreamReader(dadosServ));
+            String requisicao = null;
+            while ((requisicao = in.readLine()) != null) {
+                requisicaoFinal.append(requisicao);
+            }
+            System.out.printf(requisicaoFinal.toString());
+
+            JSONObject resposta = new JSONObject(requisicaoFinal.toString());
+            System.out.println("" + resposta.getInt("idGrupo"));
+            int idGrupo = resposta.getInt("idGrupo");
+
+            if (new GrupoController().deleteCadastro(idGrupo)) {
+                return Response.status(200).entity("{\"result\": \"sucesso\"}").build();
             } else {
-                return Response.status(400).build();
+                return Response.status(500).entity("{\"result\": \"error\"}").build();
             }
         } catch (Exception ex) {
-            Response.status(400).entity(ex.toString()).build();
+            return Response.status(500).entity(ex.toString()).build();
         }
-        return Response.status(200).build();
     }
 
     @POST

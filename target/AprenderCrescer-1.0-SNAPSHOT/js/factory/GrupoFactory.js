@@ -26,10 +26,14 @@ myapp.factory('GrupoFactory', ['$http', function ($http) {
                     callBack(resposta);
                 });
             },
-            deleteGrupo: function (callBack, id) {
-                $http({"method": "GET", "url": "/AprenderCrescer/rest/grupo/deletegrupo/" + id}).then(function (resposta) {
-                    callBack(resposta);
+        deleteGrupo: function(callBack, grupo){
+            $http({"method": "DELETE", "url": "/AprenderCrescer/rest/grupo/deletegrupo/idgrupo","headers": {"Content-Type": "application/json"},
+                "data" : grupo
+            }).then(function(resposta){
+                callBack(resposta);
+            },function(resposta){
+                callBack(resposta);
             });
-        },
+        },   
     };
 }]);

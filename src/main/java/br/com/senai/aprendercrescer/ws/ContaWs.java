@@ -6,9 +6,7 @@
 package br.com.senai.aprendercrescer.ws;
 
 import br.com.senai.aprendercrescer.controller.ContaController;
-import br.com.senai.aprendercrescer.controller.UsuarioController;
 import br.com.senai.aprendercrescer.model.Conta;
-import br.com.senai.aprendercrescer.model.Usuario;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -67,22 +65,34 @@ public class ContaWs {
         }
     }
 
-    @GET
+    @DELETE
     @Path("/deleteconta/idconta")
     @Produces("application/json")
-    public Response deleteConta(@PathParam("idconta") int idconta) {
-        try{
-            if(new ContaController().deleteCadastro(idconta)){
-                return Response.status(200).build();
-            }else{
-                return Response.status(400).build();
+    public Response deleteUsuario(InputStream dadosServ) {
+        StringBuilder requisicaoFinal = new StringBuilder();
+
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(dadosServ));
+            String requisicao = null;
+            while ((requisicao = in.readLine()) != null) {
+                requisicaoFinal.append(requisicao);
             }
-        }catch (Exception ex){
-            Response.status(400).entity(ex.toString()).build();
+            System.out.printf(requisicaoFinal.toString());
+
+            JSONObject resposta = new JSONObject(requisicaoFinal.toString());
+            System.out.println("" + resposta.getInt("idConta"));
+            int idConta = resposta.getInt("idConta");
+
+            if (new ContaController().deleteCadastro(idConta)) {
+                return Response.status(200).entity("{\"result\": \"sucesso\"}").build();
+            } else {
+                return Response.status(500).entity("{\"result\": \"error\"}").build();
+            }
+        } catch (Exception ex) {
+            return Response.status(500).entity(ex.toString()).build();
         }
-        return Response.status(200).build();
     }
-    
+
     @POST
     @Path("/setconta")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -114,7 +124,7 @@ public class ContaWs {
             return Response.status(400).entity(ex.toString()).build();
         }
     }
-    
+
     @POST
     @Path("/updateconta")
     @Consumes(MediaType.APPLICATION_JSON)

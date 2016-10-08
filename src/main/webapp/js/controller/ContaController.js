@@ -37,16 +37,14 @@ myapp.controller('ContaController', function ContaController($scope, $http, Cont
             } else {
                 swal("Conta", "Conta Cadastrado com sucesso!", "success");
             }
-            $scope.buscaConta()();
+            $scope.buscaConta();
             $scope.limpaCampos();
         }
     }
 
     $scope.limpaCampos = function () {
-        $scope.conta.idConta = "";
-        $scope.conta.descricao = "";
-        $scope.conta.tipoConta = "";
-        $scope.conta.valor = "";
+        var conta = {idConta: "", descricao: "", tipoConta: "", valor: ""}
+        $scope.conta = conta;
         $scope.editando = false;
     }
 
@@ -60,6 +58,7 @@ myapp.controller('ContaController', function ContaController($scope, $http, Cont
         } else {
             swal("Conta", "Conta deletada com sucesso!", "success");
             $scope.limpaCampos();
+            $scope.buscaConta();
         }
     }
 

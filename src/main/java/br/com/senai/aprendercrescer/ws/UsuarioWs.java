@@ -12,9 +12,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -69,21 +66,33 @@ public class UsuarioWs {
             return Response.status(200).entity("{erro : \"" + ex + "\"}").build();
         }
     }
-    
-    @GET
+
+    @DELETE
     @Path("/deleteusuario/idusuario")
     @Produces("application/json")
-    public Response deleteUsuario(@PathParam("idusuario") int idUsuario) {
+    public Response deleteUsuario(InputStream dadosServ) {
+        StringBuilder requisicaoFinal = new StringBuilder();
+
         try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(dadosServ));
+            String requisicao = null;
+            while ((requisicao = in.readLine()) != null) {
+                requisicaoFinal.append(requisicao);
+            }
+            System.out.printf(requisicaoFinal.toString());
+
+            JSONObject resposta = new JSONObject(requisicaoFinal.toString());
+            System.out.println("" + resposta.getInt("idUsuario"));
+            int idUsuario = resposta.getInt("idUsuario");
+
             if (new UsuarioController().deleteCadastro(idUsuario)) {
-                return Response.status(200).build();
+                return Response.status(200).entity("{\"result\": \"sucesso\"}").build();
             } else {
-                return Response.status(400).build();
+                return Response.status(500).entity("{\"result\": \"error\"}").build();
             }
         } catch (Exception ex) {
-            Response.status(400).entity(ex.toString()).build();
+            return Response.status(500).entity(ex.toString()).build();
         }
-        return Response.status(200).build();
     }
 
     @POST
@@ -138,7 +147,7 @@ public class UsuarioWs {
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
 
             Usuario usuario = new Usuario();
-            
+
             usuario.setIdUsuario(resposta.getInt("idUsuario"));
             usuario.setIdGrupo(resposta.getInt("idGrupo"));
             usuario.setLogin(resposta.getString("login"));

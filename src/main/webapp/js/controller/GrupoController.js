@@ -38,16 +38,15 @@ myapp.controller('GrupoController', function GrupoController($scope, $http, Grup
             } else {
                 swal("Grupo", "Grupo Cadastrado com sucesso!", "success");
             }
-            $scope.buscaUsuario();
+            $scope.buscaGrupo();
             $scope.limpaCampos();
         }
     }
 
     $scope.limpaCampos = function () {
-        $scope.grupo.idGrupo = "";
-        $scope.grupo.descricaoGrupo = "";
-        $scope.grupo.tipoUsuario = "";
-        $scope.editando = false;
+        var grupo = {idGrupo: "", descricaoGrupo: "", tipoUsuario: ""}
+        $scope.grupo = grupo;
+        $scope.editando = false;       
     }
 
     $scope.deleteGrupo = function (id) {
@@ -60,6 +59,7 @@ myapp.controller('GrupoController', function GrupoController($scope, $http, Grup
         } else {
             swal("Grupo", "Grupo deletado com sucesso!", "success");
             $scope.limpaCampos();
+            $scope.buscaGrupo();
         }
     }
 });

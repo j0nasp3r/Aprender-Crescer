@@ -26,10 +26,14 @@ myapp.factory('ContaFactory', ['$http', function ($http) {
                     callBack(resposta);
                 });
             },
-            deleteConta: function (callBack, id) {
-                $http({"method": "GET", "url": "/AprenderCrescer/rest/conta/deleteconta/" + id}).then(function (resposta) {
-                    callBack(resposta);
+         deleteConta: function(callBack, conta){
+            $http({"method": "DELETE", "url": "/AprenderCrescer/rest/conta/deleteconta/idconta","headers": {"Content-Type": "application/json"},
+                "data" : conta
+            }).then(function(resposta){
+                callBack(resposta);
+            },function(resposta){
+                callBack(resposta);
             });
-        },
+        },   
     };
 }]);

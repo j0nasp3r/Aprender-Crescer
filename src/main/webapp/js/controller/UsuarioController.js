@@ -6,7 +6,7 @@ myapp.controller('UsuarioController', function UsuarioController($scope, $http, 
     $scope.editando = false;
 
     $scope.buscaUsuario = function () {
-        UsuarioFactory.getUsuarios($scope.callbackUsuario);
+        UsuarioFactory.getUsuario($scope.callbackUsuario);
     }
 
     $scope.callbackUsuario = function (resposta) {
@@ -45,23 +45,19 @@ myapp.controller('UsuarioController', function UsuarioController($scope, $http, 
             } else {
                 swal("Usuario", "Usuario Cadastrado com sucesso!", "success");
             }
-            $scope.buscaUsuarios();
+            $scope.buscaUsuario();
             $scope.limpaCampos();
         }
     }
 
     $scope.limpaCampos = function () {
-        $scope.usuario.idUsuario = "";
-        $scope.usuario.nome = "";
-        $scope.usuario.login = "";
-        $scope.usuario.senha = "";
-        $scope.usuario.idGrupo = "";
-        $scope.usuario.flagInativo = "";
+        var usuario = {idUsuario: "", nome: "", login: "", senha: "", idGrupo: "", flagInativo: ""}
+        $scope.usuario = usuario;
         $scope.editando = false;
     }
     
-    $scope.deleteUsuario = function (id){
-        UsuarioFactory.deleteUsuario($scope.callbackDeleteUsuario,id);
+    $scope.deleteUsuario = function (usuario){
+        UsuarioFactory.deleteUsuario($scope.callbackDeleteUsuario,usuario);
     }
     
     $scope.callbackDeleteUsuario = function(resposta){
@@ -70,6 +66,7 @@ myapp.controller('UsuarioController', function UsuarioController($scope, $http, 
         }else{
             swal("Usuario", "Usuario deletado com sucesso!", "success");
             $scope.limpaCampos();
+            $scope.buscaUsuario();
         }
     }
 });
