@@ -23,18 +23,17 @@ public class ContaController {
     }
 
     public boolean insereConta(Conta conta) {
-        if (conta.getIdConta() != 0) {
-            return contaDao.updateContasCadastrados(conta);
-        } else {
-            return contaDao.insereNovosContas(conta);
-        }
+        contaDao.gravar(conta);
+        return true;
     }
 
     public ArrayList<Conta> getContas() {
-        return contaDao.buscaContas();
+        return contaDao.getAll();
     }
 
     public boolean deleteCadastro(int id) {
-        return contaDao.excluirContas(id);
+        Conta us = new Conta(id);
+        contaDao.apagar(us);
+        return true;
     }
 }

@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -49,9 +48,9 @@ public class GrupoWs {
                     retorno.append(" , ");
                 }
                 jGrupo = new JSONObject();
-                jGrupo.put("idGrupo", grupo.getIdGrupo());
-                jGrupo.put("tipoUsuario", grupo.getTipoUsuario());
-                jGrupo.put("descricaoGrupo", grupo.getDescricao());
+                jGrupo.put("idGrupo", grupo.getIdgrupo());
+                jGrupo.put("tipoUsuario", grupo.getTipousuario());
+                jGrupo.put("descricaoGrupo", grupo.getDescricaogrupo());
                 retorno.append(jGrupo.toString());;
                 controle = true;
             }
@@ -110,8 +109,8 @@ public class GrupoWs {
 
             Grupo grupo = new Grupo();
             //grupo.setIdGrupo(resposta.getInt("idGrupo"));
-            grupo.setTipoUsuario(resposta.getString("tipoUsuario").toCharArray()[0]);
-            grupo.setDescricao(resposta.getString("descricaoGrupo"));
+            grupo.setTipousuario(resposta.getString("tipoUsuario"));
+            grupo.setDescricaogrupo(resposta.getString("descricaoGrupo"));
 
             if (new GrupoController().insereGrupo(grupo)) {
                 return Response.status(200).entity("{\"result\" : \"Cadastrado com Sucesso\"}").build();
@@ -141,9 +140,9 @@ public class GrupoWs {
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
 
             Grupo grupo = new Grupo();
-            grupo.setIdGrupo(resposta.getInt("idGrupo"));
-            grupo.setTipoUsuario(resposta.getString("tipoUsuario").toCharArray()[0]);
-            grupo.setDescricao(resposta.getString("descricaoGrupo"));
+            grupo.setIdgrupo(resposta.getInt("idGrupo"));
+            grupo.setTipousuario(resposta.getString("tipoUsuario"));
+            grupo.setDescricaogrupo(resposta.getString("descricaoGrupo"));
 
             if (new GrupoController().insereGrupo(grupo)) {
                 return Response.status(200).entity("{\"result\" : \"Cadastrado com Sucesso\"}").build();

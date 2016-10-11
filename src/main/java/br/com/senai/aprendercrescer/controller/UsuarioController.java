@@ -22,18 +22,17 @@ public class UsuarioController {
     }
 
     public boolean insereCadastro(Usuario usuario) {
-        if (usuario.getIdUsuario() != 0) {
-            return usuarioDao.updateUsuarios(usuario);
-        } else {
-            return usuarioDao.insereUsuarios(usuario);
-        }
+        usuarioDao.gravar(usuario);
+        return true;
     }
 
     public ArrayList<Usuario> getUsuarios() {
-        return usuarioDao.buscaUsuarios();
+        return usuarioDao.getAll();
     }
 
     public boolean deleteCadastro(int id) {
-        return usuarioDao.excluirUsuarios(id);
+        Usuario us = new Usuario(id);
+        usuarioDao.apagar(us);
+        return true;
     }
 }

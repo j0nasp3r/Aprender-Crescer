@@ -6,7 +6,9 @@
         <meta name="viewport"
               content="width=device-width,
               initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="vendor/sweetalert/sweetalert.css">
+        <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="vendor/js/angular.min.js"></script>
         <script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
         <script type="text/javascript" src="js/myapp.js"></script>
@@ -14,56 +16,63 @@
         <script type="text/javascript" src="js/factory/ContaFactory.js"></script>
     </head>
     <body ng-controller="ContaController" ng-init="buscaConta()">
-        <div ng-hide="editando">
-            <h1>Cadastro</h1>
+        <div class="container">
+            <div class="row">
+                <div ng-hide="editando" class="col-xs-12">
+                    <h1>Cadastro</h1>
+                </div>
+                <div ng-show="editando" class="col-xs-12">
+                    <h1>Editar</h1>            
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <form ng-submit="cadastroConta(conta)">
+                        <div class="form-group">
+                            <label class="control-label">Descrição: </label>
+                            <input class="form-control" ng-model="conta.descricao" type="text" placeholder="Digite aqui a descrição">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Tipo Conta: </label>
+                            <input class="form-control" ng-model="conta.tipoConta" type="text" placeholder="Digite aqui o tipo da conta">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Valor: </label>
+                            <input class="form-control" ng-model="conta.valor" type="text" placeholder="Digite aqui o valor">
+                        </div>
+                        <button class="btn btn-primary" ng-show="editando"  type="submit">Salvar</button>
+                        <button class="btn btn-primary" ng-hide="editando" type="submit">Adicionar</button>
+                    </form>       
+                </div>
+                <div class="col-xs-9">
+                    <h1> Lista Contas </h1>
+                    <div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>IdConta</th>
+                                    <th>Descrição</th>
+                                    <th>TipoConta</th>
+                                    <th>Valor</th>
+                                </tr>    
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in dados">
+                                    <td>{{item.idConta}}</td>
+                                    <td>{{item.descricao}}</td>
+                                    <td>{{item.tipoConta}}</td>
+                                    <td>{{item.valor}}</td>
+                                    <td>
+                                        <button class="btn btn-primary"ng-click="editarConta(item)"><i class="glyphicon glyphicon-pencil"></i></button>
+                                        <button class="btn btn-danger" ng-click="deleteConta(item)"><i class="glyphicon glyphicon-trash"></i></button> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                    </div>
+                </div>
+            </div>
         </div>
-        <div ng-show="editando">
-            <h1>Editar</h1>            
-        </div>
-        <form ng-submit="cadastroConta(conta)">
-            <div>
-                <label>Descrição: </label>
-                <input ng-model="conta.descricao" type="text" placeholder="Digite aqui a descrição">
-            </div>
-            <div>
-                <label>Tipo Conta: </label>
-                <input ng-model="conta.tipoConta" type="text" placeholder="Digite aqui o tipo da conta">
-            </div>
-            <div>
-                <label>Valor: </label>
-                <input ng-model="conta.valor" type="text" placeholder="Digite aqui o valor">
-            </div>
-            <button ng-show="editando"  type="submit">Salvar</button>
-            <button ng-hide="editando" type="submit">Adicionar</button>
-        </form>       
-        <div>
-            <h1> Lista Contas </h1>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>IdConta</th>
-                            <th>Descrição</th>
-                            <th>TipoConta</th>
-                            <th>Valor</th>
-                        </tr>    
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in dados">
-                            <td>{{item.idConta}}</td>
-                            <td>{{item.descricao}}</td>
-                            <td>{{item.tipoConta}}</td>
-                            <td>{{item.valor}}</td>
-                            <td>
-                                <button ng-click="editarConta(item)">Editar</button>
-                                <button ng-click="deleteConta(item)">Remover</button> 
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>    
-
-            </div>
-        </div>
-
-    </body>
+    </div>      
+</body>
 </html>

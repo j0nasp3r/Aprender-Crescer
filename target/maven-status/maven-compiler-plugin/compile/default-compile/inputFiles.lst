@@ -4,12 +4,17 @@
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/model/Usuario.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/dao/UsuarioDao.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/dao/Conexao.java
+/home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/dao/banco/AbstractDao.java
+/home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/model/banco/Grupo.java
+/home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/model/banco/Usuario.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/ws/MessageRestService.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/dao/ContaDao.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/ws/ContaWs.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/controller/Usuario.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/model/Grupo.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/controller/ContaController.java
+/home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/model/banco/Conta.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/ws/UsuarioWs.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/dao/GrupoDao.java
 /home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/controller/GrupoController.java
+/home/j0nas/MEGA/aprender_e_crescer/Programacao/AprenderCrescer/AprenderCrescer/src/main/java/br/com/senai/aprendercrescer/model/banco/AbstractModel.java

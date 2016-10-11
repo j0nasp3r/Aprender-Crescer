@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author j0nas
  */
 public class GrupoController {
+
     GrupoDao grupoDao;
     Grupo grupo;
 
@@ -22,18 +23,17 @@ public class GrupoController {
     }
 
     public boolean insereGrupo(Grupo grupo) {
-        if (grupo.getIdGrupo() != 0) {
-            return grupoDao.updateGruposCadastrados(grupo);
-        } else {
-            return grupoDao.insereNovosGrupos(grupo);
-        }
+        grupoDao.gravar(grupo);
+        return true;
     }
 
     public ArrayList<Grupo> getGrupos() {
-        return grupoDao.buscaGrupos();
+        return grupoDao.getAll();
     }
 
     public boolean deleteCadastro(int id) {
-        return grupoDao.excluirGrupos(id);
+        Grupo gp = new Grupo(id);
+        grupoDao.apagar(gp);
+        return true;
     }
 }

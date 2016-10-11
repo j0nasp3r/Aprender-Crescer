@@ -10,8 +10,8 @@ import br.com.senai.aprendercrescer.model.Conta;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -50,9 +50,9 @@ public class ContaWs {
                     retorno.append(" , ");
                 }
                 jConta = new JSONObject();
-                jConta.put("idConta", conta.getIdConta());
+                jConta.put("idConta", conta.getIdconta());
                 jConta.put("descricao", conta.getDescricao());
-                jConta.put("tipoConta", conta.getTipoConta());
+                jConta.put("tipoConta", conta.getTipoconta());
                 jConta.put("valor", conta.getValor());
                 retorno.append(jConta.toString());;
                 controle = true;
@@ -112,7 +112,7 @@ public class ContaWs {
             Conta conta = new Conta();
             //conta.setIdConta(resposta.getInt("idConta"));
             conta.setDescricao(resposta.getString("descricao"));
-            conta.setTipoConta(resposta.getString("tipoConta"));
+            conta.setTipoconta(resposta.getString("tipoConta"));
             conta.setValor(resposta.getDouble("valor"));
 
             if (new ContaController().insereConta(conta)) {
@@ -140,11 +140,10 @@ public class ContaWs {
             }
 
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
-
             Conta conta = new Conta();
-            conta.setIdConta(resposta.getInt("idConta"));
+            conta.setIdconta(resposta.getInt("idConta"));
             conta.setDescricao(resposta.getString("descricao"));
-            conta.setTipoConta(resposta.getString("tipoConta"));
+            conta.setTipoconta(resposta.getString("tipoConta"));
             conta.setValor(resposta.getDouble("valor"));
 
             if (new ContaController().insereConta(conta)) {

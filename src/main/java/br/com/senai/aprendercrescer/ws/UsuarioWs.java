@@ -50,13 +50,13 @@ public class UsuarioWs {
                 }
 
                 jUsuario = new JSONObject();
-                jUsuario.put("idUsuario", usuario.getIdUsuario());
-                jUsuario.put("idGrupo", usuario.getIdGrupo());
+                jUsuario.put("idUsuario", usuario.getIdusuario());
+                jUsuario.put("idGrupo", usuario.getIdgrupo());
                 jUsuario.put("login", usuario.getLogin());
-                jUsuario.put("senha", usuario.getSenha());
-                jUsuario.put("nome", usuario.getNome());
-                jUsuario.put("dtAlteracao", usuario.getDtAlteracao());
-                jUsuario.put("flagInativo", usuario.getFlagInativo());
+                jUsuario.put("senha", usuario.getSenhausuario());
+                jUsuario.put("nome", usuario.getNomeusuario());
+                jUsuario.put("dtAlteracao", usuario.getDtalteracao());
+                jUsuario.put("flagInativo", usuario.getFlaginativo());
                 retorno.append(jUsuario.toString());;
                 controle = true;
             }
@@ -83,8 +83,9 @@ public class UsuarioWs {
 
             JSONObject resposta = new JSONObject(requisicaoFinal.toString());
             System.out.println("" + resposta.getInt("idUsuario"));
+            
             int idUsuario = resposta.getInt("idUsuario");
-
+            
             if (new UsuarioController().deleteCadastro(idUsuario)) {
                 return Response.status(200).entity("{\"result\": \"sucesso\"}").build();
             } else {
@@ -113,12 +114,12 @@ public class UsuarioWs {
 
             Usuario usuario = new Usuario();
             //usuario.setIdUsuario(resposta.getInt("idUsuario"));e
-            usuario.setIdGrupo(resposta.getInt("idGrupo"));
+            usuario.setIdgrupo(resposta.getInt("idGrupo"));
             usuario.setLogin(resposta.getString("login"));
-            usuario.setSenha(resposta.getString("senha"));
-            usuario.setNome(resposta.getString("nome"));
-            usuario.setDtAlteracao(new Date());
-            usuario.setFlagInativo(resposta.getString("flagInativo").toCharArray()[0]);
+            usuario.setSenhausuario(resposta.getString("senha"));
+            usuario.setNomeusuario(resposta.getString("nome"));
+            usuario.setDtalteracao(new Date());
+            usuario.setFlaginativo(resposta.getString("flagInativo"));
 
             if (new UsuarioController().insereCadastro(usuario)) {
                 return Response.status(200).entity("{\"result\" : \"Cadastrado com Sucesso\"}").build();
@@ -148,13 +149,13 @@ public class UsuarioWs {
 
             Usuario usuario = new Usuario();
 
-            usuario.setIdUsuario(resposta.getInt("idUsuario"));
-            usuario.setIdGrupo(resposta.getInt("idGrupo"));
+            usuario.setIdusuario(resposta.getInt("idUsuario"));
+            usuario.setIdgrupo(resposta.getInt("idGrupo"));
             usuario.setLogin(resposta.getString("login"));
-            usuario.setSenha(resposta.getString("senha"));
-            usuario.setNome(resposta.getString("nome"));
-            usuario.setDtAlteracao(new Date());
-            usuario.setFlagInativo(resposta.getString("flagInativo").toCharArray()[0]);
+            usuario.setSenhausuario(resposta.getString("senha"));
+            usuario.setNomeusuario(resposta.getString("nome"));
+            usuario.setDtalteracao(new Date());
+            usuario.setFlaginativo(resposta.getString("flagInativo"));
 
             if (new UsuarioController().insereCadastro(usuario)) {
                 return Response.status(200).entity("{\"result\" : \"Cadastrado com Sucesso\"}").build();
